@@ -1,0 +1,33 @@
+<%= form_for @comment  do |f| %>
+  <% if @comment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@comment.errors.count, "error") %> prohibited this comment from being saved:</h2>
+
+      <ul>
+      <% @comment.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="control-group">
+    <%# f.label  :post %>  <%# link_to 'Create New', new_post_path %>
+    <%= f.collection_select :post_id, Post.all.sort_by {|i| i.created_at}, :id, :title, {include_blank: 'select a Post'} %>
+    <%= f.hidden_field :post_id, :value => @comment.post_id %>
+  </div>
+
+  <div class="control-group">
+    <%= f.label  :author %> (<%= link_to 'Create New', new_author_path %>)
+    <%= f.collection_select :author_id, Author.all.sort_by {|i| i.name.downcase}, :id, :name, {include_blank: 'select an Author'} %>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :content %><br />
+    <%= f.text_area :content %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Submit" %>
+  </div>
+<% end %>

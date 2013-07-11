@@ -1,0 +1,32 @@
+<p id="notice"><%= notice %></p>
+
+
+<p>
+  <b>Author:</b>
+  <%= link_to @post.author.name, author_path(@post.author_id) %>
+</p>
+
+<p>
+  <b>Title:</b>
+  <%= @post.title %>
+</p>
+
+<p>
+  <b>Content:</b>
+  <%= @post.paragraphize %>
+</p>
+
+<%= link_to 'Post New Comment', new_post_comment_path(@post.id) %>
+<%# render :partial => "posts/form", :locals => {:comment => Comment.new} %>
+<br><br>
+
+<table>
+<% @post.comments.each do |comment| %>
+  <tr>
+    <td><%= comment.paragraphize %></td>
+  <tr>
+<% end %>
+</table>
+
+<%= link_to 'Edit', edit_post_path(@post) %> |
+<%= link_to 'Back', posts_path %>
