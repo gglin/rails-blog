@@ -1,6 +1,8 @@
 <h1>Editing comment</h1>
 
+Post: <%= @comment.post.title %><br>
+by <%= @comment.author.name %><br> <br>
+
 <%= render 'form' %>
 
-<%= link_to 'Show', @comment %> |
-<%= link_to 'Back', comments_path %>
+<%= link_to 'Back', post_path(@comment.post_id) %>

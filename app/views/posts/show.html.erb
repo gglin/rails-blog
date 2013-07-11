@@ -12,21 +12,41 @@
 </p>
 
 <p>
-  <b>Content:</b>
-  <%= @post.paragraphize %>
+  <b>Posted at:</b>
+  <%= @post.created_at %>
 </p>
 
-<%= link_to 'Post New Comment', new_post_comment_path(@post.id) %>
-<%# render :partial => "posts/form", :locals => {:comment => Comment.new} %>
+<p>
+  <%= @post.paragraphize.html_safe %>
+</p>
+
 <br><br>
 
 <table>
 <% @post.comments.each do |comment| %>
   <tr>
-    <td><%= comment.paragraphize %></td>
+    <td colspan="100%"><%= comment.paragraphize.html_safe %></td>
   <tr>
+  <tr>
+    <td>
+     &nbsp; - <%= comment.author.name %> 
+    </td>
+  </tr>
+  <tr>
+    <td>
+    <%= comment.created_at %>
+    | <%= link_to 'Edit Comment', edit_post_comment_path(@post, comment) %>
+    | <%= link_to 'Delete Comment', comment, method: :delete, data: { confirm: 'Are you sure?' } %>
+    </td>
+  </tr>
+  <tr><td>&nbsp;</td></tr>
 <% end %>
 </table>
 
+<br><br>
+<%= link_to 'Post New Comment', new_post_comment_path(@post.id) %>
+<%# render :partial => "posts/form", :locals => {:comment => Comment.new} %>
+
+<br><br><br><br>
 <%= link_to 'Edit', edit_post_path(@post) %> |
 <%= link_to 'Back', posts_path %>

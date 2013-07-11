@@ -12,8 +12,6 @@
   <% end %>
 
   <div class="control-group">
-    <%# f.label  :post %>  <%# link_to 'Create New', new_post_path %>
-    <%= f.collection_select :post_id, Post.all.sort_by {|i| i.created_at}, :id, :title, {include_blank: 'select a Post'} %>
     <%= f.hidden_field :post_id, :value => @comment.post_id %>
   </div>
 
@@ -23,8 +21,8 @@
   </div>
 
   <div class="control-group">
-    <%= f.label :content %><br />
-    <%= f.text_area :content %>
+    <%# f.label :content %><br />
+    <%= f.text_area :content, {cols: 80, rows: 12} %>
   </div>
 
   <div class="actions">

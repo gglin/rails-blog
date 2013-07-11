@@ -24,7 +24,7 @@ class CommentsController < ApplicationController
   # GET /comments/new
   # GET /comments/new.json
   def new
-    @comment = Comment.new
+    @comment = Comment.new(:post_id => params[:post_id])
 
     if request.referer.is_a? String
       resource_type = request.referer.split("/")[-2]
@@ -54,7 +54,7 @@ class CommentsController < ApplicationController
 
     respond_to do |format|
       if @comment.save
-        format.html { redirect_to post_path(@comment.post_id), notice: 'Comment was successfully posted.' }
+        format.html { redirect_to @comment.post, notice: 'Comment was successfully posted.' }
         format.json { render json: @comment, status: :created, location: @comment }
       else
         format.html { render action: "new" }
@@ -70,7 +70,7 @@ class CommentsController < ApplicationController
 
     respond_to do |format|
       if @comment.update_attributes(params[:comment])
-        format.html { redirect_to post_path(@comment.post_id), notice: 'Comment was successfully edited.' }
+        format.html { redirect_to @comment.post, notice: 'Comment was successfully edited.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

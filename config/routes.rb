@@ -2,7 +2,7 @@ RailsBlog::Application.routes.draw do
   resources :authors
 
   resources :posts do
-    resources :comments
+    resources :comments, only: [:new, :create, :edit, :update, :destroy]
   end
 
   resources :comments
